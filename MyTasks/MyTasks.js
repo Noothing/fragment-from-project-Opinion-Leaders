@@ -1,17 +1,14 @@
 import React, {useState} from "react";
-import {DesktopDealsTable} from "./components/DesktopDealsTable";
-import {MobileDealsTable} from "./components/MobileDealsTable";
-import {dealsList} from "../../simpledata/deals-list";
+import {MyTaskDialog} from "./MyTaskDialog";
 import {TableLayout} from "../Common/Table/TableLayout";
-import {MyTaskDialog} from "../../../../Work/ol-front/src/components/MyTasks/MyTaskDialog";
+import {MobileMyTasksTable} from "./components/MobileMyTasksTable";
+import {DesktopMyTasksTable} from "./components/DesktopMyTasksTable";
+import {userData} from "../../simpledata/user-data";
 import PageTitle from "../Common/PageTitle/PageTitle";
-import {useSelector} from "react-redux";
 
-export const Deals = () => {
+const MyTasks = () => {
 
     const [showedDialog, setShowedDialog] = useState(false)
-
-    const theme = useSelector(state => state.theme.isBlogger)
 
     function onClickHandler() {
         setShowedDialog(true)
@@ -22,17 +19,16 @@ export const Deals = () => {
             <TableLayout
                 title={
                     <PageTitle
-                        title="Сделки"
-                        hasButton={!theme}
-                        icon="icon-pen"
+                        title="Мои задания"
+                        hasButton={true}
                         text="Создать задание"
+                        icon={"icon-pen"}
                         onClickHandler={onClickHandler.bind(this)}/>
                 }
                 pageOffset={7}
-                initialRows={dealsList}
-                desktopTable={<DesktopDealsTable/>}
-                mobileTable={<MobileDealsTable/>}
-            />
+                initialRows={userData.tasks}
+                desktopTable={<DesktopMyTasksTable/>}
+                mobileTable={<MobileMyTasksTable/>}/>
 
             <MyTaskDialog
                 showed={showedDialog}
@@ -40,3 +36,5 @@ export const Deals = () => {
         </React.Fragment>
     )
 }
+
+export default MyTasks
